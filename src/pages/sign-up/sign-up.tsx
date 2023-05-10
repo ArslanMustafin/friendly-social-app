@@ -2,19 +2,15 @@ import { Link } from 'react-router-dom';
 
 import { Button, Col, Form, Input, Row, Space, Typography } from 'antd';
 
+import { RegisterUserPayloadType } from 'services/api';
+import { isLoginRequestSelector, registerUserAction } from 'services/store/user';
+import { useAppDispatch, useAppSelector } from 'services/store/utils';
+
 import { routes } from 'routes/constants';
 
-// import { loginUserAction } from 'services/store/user/thunk';
-// import { useAppDispatch } from 'services/store/utils';
 import styles from './sign-up.module.css';
 
-type FormValuesType = {
-  email: string;
-  password: string;
-  firstname: string;
-  lastname: string;
-  middlename?: string;
-};
+type FormValuesType = RegisterUserPayloadType;
 
 const initialValues: FormValuesType = {
   email: '',
@@ -25,12 +21,11 @@ const initialValues: FormValuesType = {
 };
 
 const SignUpPage = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(isLoginRequestSelector);
 
   const onFinish = (values: FormValuesType) => {
-    console.log(values);
-
-    // dispatch(loginUserAction(values));
+    dispatch(registerUserAction(values));
   };
 
   return (
@@ -54,6 +49,7 @@ const SignUpPage = () => {
           className={styles.content}
           layout='vertical'
           initialValues={initialValues}
+          disabled={isLoading}
         >
           <Form.Item
             name='email'
@@ -106,7 +102,7 @@ const SignUpPage = () => {
           </Form.Item>
 
           <Form.Item className={styles.formSubmit}>
-            <Button type='primary' htmlType='submit' block>
+            <Button type='primary' htmlType='submit' loading={isLoading} block>
               Зарегистрироваться
             </Button>
           </Form.Item>

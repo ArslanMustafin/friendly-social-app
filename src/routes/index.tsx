@@ -7,10 +7,28 @@ import { ErrorBoundary } from 'components/error-boundary';
 import { AppLayout, AuthLayout } from 'components/layouts';
 
 import { routes } from './constants';
+import { ProtectGuard } from './guards';
 
 export const routerConfig: RouteObject[] = [
   {
-    element: <AuthLayout />,
+    element: (
+      <ProtectGuard>
+        <AppLayout />
+      </ProtectGuard>
+    ),
+    children: [
+      {
+        path: '/',
+        element: <>FeedPage</>,
+      },
+    ],
+  },
+  {
+    element: (
+      <ProtectGuard onlyAuth={false}>
+        <AuthLayout />
+      </ProtectGuard>
+    ),
     errorElement: <ErrorBoundary />,
     children: [
       {
@@ -20,15 +38,6 @@ export const routerConfig: RouteObject[] = [
       {
         path: routes.SIGN_UP,
         element: <SignUpPage />,
-      },
-    ],
-  },
-  {
-    element: <AppLayout />,
-    children: [
-      {
-        path: '/',
-        element: <>FeedPage</>,
       },
     ],
   },

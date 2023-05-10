@@ -2,16 +2,15 @@ import { Link } from 'react-router-dom';
 
 import { Button, Col, Form, Input, Row, Space, Typography } from 'antd';
 
+import { LoginUserPayloadType } from 'services/api';
+import { isLoginRequestSelector, loginUserAction } from 'services/store/user';
+import { useAppDispatch, useAppSelector } from 'services/store/utils';
+
 import { routes } from 'routes/constants';
 
-// import { loginUserAction } from 'services/store/user/thunk';
-// import { useAppDispatch } from 'services/store/utils';
 import styles from './sign-in.module.css';
 
-type FormValuesType = {
-  email: string;
-  password: string;
-};
+type FormValuesType = LoginUserPayloadType;
 
 const initialValues: FormValuesType = {
   email: 'test@gmail.com',
@@ -19,12 +18,11 @@ const initialValues: FormValuesType = {
 };
 
 const SignInPage = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(isLoginRequestSelector);
 
   const onFinish = (values: FormValuesType) => {
-    console.log(values);
-
-    // dispatch(loginUserAction(values));
+    dispatch(loginUserAction(values));
   };
 
   return (
@@ -48,6 +46,7 @@ const SignInPage = () => {
           className={styles.content}
           layout='vertical'
           initialValues={initialValues}
+          disabled={isLoading}
         >
           <Form.Item
             name='email'
@@ -66,7 +65,7 @@ const SignInPage = () => {
           </Form.Item>
 
           <Form.Item className={styles.formSubmit}>
-            <Button type='primary' htmlType='submit' block>
+            <Button type='primary' htmlType='submit' loading={isLoading} block>
               Войти
             </Button>
           </Form.Item>
