@@ -21,8 +21,6 @@ export const App = () => {
   useEffect(() => {
     if (!id) return;
 
-    console.log('updater user');
-
     dispatch(fetchPostsFromUserAction());
     dispatch(fetchPostsAction());
   }, [dispatch, id]);

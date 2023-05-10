@@ -23,7 +23,6 @@ export const loginUserAction = createAsyncThunk(
   'user/loginUser',
   async (payload: LoginUserPayloadType) => {
     const { token, user } = await loginUser(payload);
-    console.log('123');
 
     setCookie(TOKEN_NAME, token);
 
