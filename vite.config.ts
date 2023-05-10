@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/friendly-social-app/',
   resolve: {
     alias: {
       assets: path.resolve(__dirname, './src/assets'),
@@ -19,12 +20,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001/',
+        target: 'http://friendly-api.multimedia-trainer.ru/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
       '/files': {
-        target: 'http://localhost:3001/files',
+        target: 'http://friendly-api.multimedia-trainer.ru/files',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/files/, ''),
       },
