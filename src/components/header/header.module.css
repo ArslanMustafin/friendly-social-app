@@ -1,0 +1,27 @@
+.header {
+  padding-inline: 16px;
+
+  color: #fff;
+}
+
+.logo {
+  font-size: 18px;
+}
+
+.profileAvatar {
+  background-color: #7bd13d;
+}
+
+.profileText {
+  font-size: 14px;
+}
+
+@media screen and (width <= 576px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .profileText {
+    display: none;
+  }
+}
