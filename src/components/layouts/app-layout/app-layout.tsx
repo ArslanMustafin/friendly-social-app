@@ -11,7 +11,7 @@ const AppLayout = () => {
   return (
     <Layout className={styles.layout}>
       <Header />
-      <Layout className='site-layout'>
+      <Layout>
         <Layout.Content className={styles.content}>
           <Outlet />
         </Layout.Content>

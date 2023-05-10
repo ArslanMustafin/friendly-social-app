@@ -12,5 +12,5 @@
 .content {
   flex-grow: 1;
 
-  padding: 20px 20px 20px calc(20px + 48px);
+  padding: 20px;
 }

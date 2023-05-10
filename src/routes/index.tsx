@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
+import { SettingsPage } from 'pages/settings';
 import { SignInPage } from 'pages/sign-in';
 import { SignUpPage } from 'pages/sign-up';
 
@@ -16,10 +17,23 @@ export const routerConfig: RouteObject[] = [
         <AppLayout />
       </ProtectGuard>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: '/',
         element: <>FeedPage</>,
+      },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
+      },
+      {
+        path: '/posts',
+        element: <SettingsPage />,
+      },
+      {
+        path: '/friends',
+        element: <SettingsPage />,
       },
     ],
   },

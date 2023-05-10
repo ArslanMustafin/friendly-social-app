@@ -1,7 +1,6 @@
 .header {
-  padding-inline: 16px;
-
   color: #fff;
+  background-color: #515c67;
 }
 
 .logo {
@@ -9,11 +8,23 @@
 }
 
 .profileAvatar {
-  background-color: #7bd13d;
+  background-color: #1677ff;
 }
 
 .profileText {
   font-size: 14px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatarContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 @media screen and (width <= 576px) {
