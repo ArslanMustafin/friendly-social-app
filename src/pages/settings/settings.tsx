@@ -16,6 +16,7 @@ import {
 } from 'services/store/user';
 import { useAppDispatch, useAppSelector } from 'services/store/utils';
 
+import { getFileUrl } from 'utils/get-file-url';
 import { getUserInfo } from 'utils/get-user-info';
 
 import { UserType } from 'types/user';
@@ -120,7 +121,7 @@ const SettingsPage = () => {
         <Col className={styles.cardContainer}>
           <Card
             className={styles.card}
-            cover={user?.avatar ? <img alt='avatar' src={user?.avatar} /> : ''}
+            cover={user?.avatar ? <img alt='avatar' src={getFileUrl(user?.avatar)} /> : ''}
           >
             <Card.Meta
               title={`${user?.firstname} ${user?.lastname}`}

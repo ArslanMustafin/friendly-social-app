@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import { createHashRouter, RouteObject } from 'react-router-dom';
 
 import { FeedPage } from 'pages/feed';
 import { PostsPage } from 'pages/posts';
@@ -33,10 +33,6 @@ export const routerConfig: RouteObject[] = [
         path: '/posts',
         element: <PostsPage />,
       },
-      {
-        path: '/friends',
-        element: <SettingsPage />,
-      },
     ],
   },
   {
@@ -59,4 +55,4 @@ export const routerConfig: RouteObject[] = [
   },
 ];
 
-export const router = createBrowserRouter(routerConfig);
+export const router = createHashRouter(routerConfig);

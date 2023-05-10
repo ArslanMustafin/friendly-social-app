@@ -7,6 +7,8 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { userActions, userSelector } from 'services/store/user';
 import { useAppDispatch, useAppSelector } from 'services/store/utils';
 
+import { getFileUrl } from 'utils/get-file-url';
+
 import { routes } from 'routes/constants';
 
 import styles from './header.module.css';
@@ -38,12 +40,15 @@ const Header = () => {
           </HeaderLink>
           <nav className={styles.navigation}>
             <HeaderLink href='/posts'>Посты</HeaderLink>
-            <HeaderLink href='/friends'>Друзья</HeaderLink>
           </nav>
 
           <Space>
             <Link to='/settings' className={styles.avatarContainer}>
-              <Avatar icon={<UserOutlined />} className={styles.profileAvatar} src={user?.avatar}>
+              <Avatar
+                icon={<UserOutlined />}
+                className={styles.profileAvatar}
+                src={getFileUrl(user?.avatar)}
+              >
                 {fullname}
               </Avatar>
               <Typography.Text className={styles.profileText}>{fullname}</Typography.Text>

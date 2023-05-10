@@ -17,18 +17,4 @@ export default defineConfig({
     },
   },
   plugins: [react({})],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://friendly-api.multimedia-trainer.ru/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-      '/files': {
-        target: 'http://friendly-api.multimedia-trainer.ru/files',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/files/, ''),
-      },
-    },
-  },
 });

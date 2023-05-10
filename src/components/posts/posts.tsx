@@ -9,6 +9,7 @@ import { userSelector } from 'services/store/user';
 import { useAppDispatch, useAppSelector } from 'services/store/utils';
 
 import { checkLike } from 'utils/check-like';
+import { getFileUrl } from 'utils/get-file-url';
 
 import { PostType } from 'types/post';
 
@@ -54,7 +55,7 @@ const Posts = ({ showTitle, isLoading, posts }: PropsType) => {
       renderItem={(item) => (
         <List.Item>
           <Card
-            cover={<img alt='post Image' src={item.image} />}
+            cover={<img alt='post Image' src={getFileUrl(item.image)} />}
             actions={[likeAction(item.likes as string[], user?._id as string, item._id)]}
           >
             {item.text}
