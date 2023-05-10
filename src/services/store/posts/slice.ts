@@ -162,8 +162,9 @@ export const { reducer: postsReducer, actions: postsActions } = createSlice({
       .addCase(addPostAction.fulfilled, (state, action) => {
         state.isAddPostsRequest = false;
         state.isAddPostsError = false;
-        state.posts.push(action.payload);
-        state.postsFromUser.push(action.payload);
+
+        state.posts.unshift(action.payload);
+        state.postsFromUser.unshift(action.payload);
       })
       .addCase(addPostAction.rejected, (state, action) => {
         state.isAddPostsRequest = false;

@@ -9,6 +9,8 @@ import {
   ToggleLikePayloadType,
 } from 'services/api/posts';
 
+import { UserType } from 'types/user';
+
 export const fetchPostsAction = createAsyncThunk('posts/fetch', async () => {
   const posts = await getAllPosts();
 
@@ -41,6 +43,10 @@ export const dislikePostAction = createAsyncThunk(
 
 export const addPostAction = createAsyncThunk('user/addPost', async (payload: FormData) => {
   const post = await addPost(payload);
+
+  const author = post.author as UserType;
+
+  post.author = author._id;
 
   return post;
 });

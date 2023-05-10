@@ -66,7 +66,7 @@ const SettingsPage = () => {
 
     formData.append('avatar', file);
 
-    return axios.post('/user/avatar', formData);
+    return axios.post('/user/avatar', formData).then((res) => res.data.avatar);
   };
 
   return (

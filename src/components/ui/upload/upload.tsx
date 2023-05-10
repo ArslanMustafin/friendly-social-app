@@ -10,7 +10,7 @@ import styles from './upload.module.css';
 
 type PropsType = {
   uploadText?: string;
-  onRequest: (file: File) => Promise<unknown>;
+  onRequest: (file: File) => Promise<string>;
   onChange: (imageUrl: string) => void;
 };
 
@@ -40,9 +40,9 @@ const Upload = ({ uploadText = 'Загрузить изображение', onCh
 
   const handleRequest: UploadProps['customRequest'] = ({ file }) => {
     onRequest(file as File)
-      .then(() => {
+      .then((res) => {
         setLoading(false);
-        onChange(URL.createObjectURL(file as File));
+        onChange(res);
         messageApi.success('Картинка успешно обновлена!');
       })
       .catch((error) => {
