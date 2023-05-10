@@ -1,10 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { CaseReducer, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { rejectionHandler } from 'utils/rejectErrors';
+import { TOKEN_NAME } from 'utils/constants';
+import { deleteCookie } from 'utils/cookie';
+import { rejectionHandler } from 'utils/reject-errors';
 
 import { UserType } from 'types/user';
 
-import { fetchUserAction, loginUserAction, registerUserAction } from './thunk';
+import { fetchUserAction, loginUserAction, registerUserAction, updateUserAction } from './thunk';
 
 type UserStateType = {
   user: UserType | null;
@@ -16,6 +18,8 @@ type UserStateType = {
   isLoginUserError: boolean;
   isRegisterUserRequest: boolean;
   isRegisterUserError: boolean;
+  isUpdateUserRequest: boolean;
+  isUpdateUserError: boolean;
 };
 
 export const initialState: UserStateType = {
@@ -31,14 +35,26 @@ export const initialState: UserStateType = {
 
   isRegisterUserError: false,
   isRegisterUserRequest: false,
+
+  isUpdateUserError: false,
+  isUpdateUserRequest: false,
 };
 
 const NAME = 'user';
 
+const updateAvatar: CaseReducer<UserStateType, PayloadAction<string>> = (state, action) => {
+  state.user = { ...(state.user as UserType), avatar: action.payload };
+};
+const logout: CaseReducer = () => {
+  deleteCookie(TOKEN_NAME);
+
+  return { ...initialState, isAuthChecked: true };
+};
+
 export const { reducer: userReducer, actions: userActions } = createSlice({
   name: NAME,
   initialState: initialState,
-  reducers: {},
+  reducers: { updateAvatar, logout },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserAction.pending, (state) => {
@@ -99,6 +115,26 @@ export const { reducer: userReducer, actions: userActions } = createSlice({
       .addCase(registerUserAction.rejected, (state, action) => {
         state.isRegisterUserRequest = false;
         state.isRegisterUserError = true;
+        state.error = rejectionHandler(action.error);
+      });
+
+    /**
+     * Update user
+     */
+    builder
+      .addCase(updateUserAction.pending, (state) => {
+        state.isUpdateUserRequest = true;
+        state.isUpdateUserError = false;
+        state.error = '';
+      })
+      .addCase(updateUserAction.fulfilled, (state, action) => {
+        state.isUpdateUserRequest = false;
+        state.isUpdateUserError = false;
+        state.user = action.payload;
+      })
+      .addCase(updateUserAction.rejected, (state, action) => {
+        state.isUpdateUserRequest = false;
+        state.isUpdateUserError = true;
         state.error = rejectionHandler(action.error);
       });
   },

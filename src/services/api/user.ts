@@ -52,3 +52,18 @@ export const registerUser = (payload: RegisterUserPayloadType) => {
       throw new Error(error.message);
     });
 };
+
+export type UpdateUserPayloadType = Omit<UserType, 'avatar'> & Pick<BaseUserType, 'password'>;
+
+export type UpdateResultType = UserType;
+
+export const updateUser = (payload: RegisterUserPayloadType) => {
+  return api
+    .patch<UpdateResultType>(`/user`, payload)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error: AxiosError) => {
+      throw new Error(error.message);
+    });
+};

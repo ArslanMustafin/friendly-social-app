@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
+import { FeedPage } from 'pages/feed';
+import { PostsPage } from 'pages/posts';
 import { SettingsPage } from 'pages/settings';
 import { SignInPage } from 'pages/sign-in';
 import { SignUpPage } from 'pages/sign-up';
@@ -21,7 +23,7 @@ export const routerConfig: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <>FeedPage</>,
+        element: <FeedPage />,
       },
       {
         path: '/settings',
@@ -29,7 +31,7 @@ export const routerConfig: RouteObject[] = [
       },
       {
         path: '/posts',
-        element: <SettingsPage />,
+        element: <PostsPage />,
       },
       {
         path: '/friends',

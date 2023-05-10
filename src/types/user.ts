@@ -14,7 +14,7 @@ export type BaseUserType = {
   city?: string;
   university?: string;
   friends: string[] | UserType[];
-  posts: string[] | PostType[];
+  posts: PostType[];
 };
 
 export type UserType = Omit<BaseUserType, 'password' | 'token'>;

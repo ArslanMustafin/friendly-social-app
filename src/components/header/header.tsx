@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Avatar, ConfigProvider, Layout, Row, theme, Typography } from 'antd';
+import { Avatar, Button, ConfigProvider, Layout, Row, Space, theme, Typography } from 'antd';
 
-import { UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
-import { userSelector } from 'services/store/user';
-import { useAppSelector } from 'services/store/utils';
+import { userActions, userSelector } from 'services/store/user';
+import { useAppDispatch, useAppSelector } from 'services/store/utils';
+
+import { routes } from 'routes/constants';
 
 import styles from './header.module.css';
 
@@ -13,10 +15,17 @@ import { HeaderLink } from './components';
 
 const Header = () => {
   const { token } = theme.useToken();
+  const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
   const user = useAppSelector(userSelector);
 
   const fullname = `${user?.lastname} ${user?.firstname}`;
+
+  const logout = () => {
+    dispatch(userActions.logout());
+    navigate(routes.SIGN_IN);
+  };
 
   return (
     <ConfigProvider theme={{ token: { colorText: token.colorTextLightSolid } }}>
@@ -32,12 +41,15 @@ const Header = () => {
             <HeaderLink href='/friends'>Друзья</HeaderLink>
           </nav>
 
-          <Link to='/settings' className={styles.avatarContainer}>
-            <Avatar icon={<UserOutlined />} className={styles.profileAvatar} src={user?.avatar}>
-              {fullname}
-            </Avatar>
-            <Typography.Text className={styles.profileText}>{fullname}</Typography.Text>
-          </Link>
+          <Space>
+            <Link to='/settings' className={styles.avatarContainer}>
+              <Avatar icon={<UserOutlined />} className={styles.profileAvatar} src={user?.avatar}>
+                {fullname}
+              </Avatar>
+              <Typography.Text className={styles.profileText}>{fullname}</Typography.Text>
+            </Link>
+            <Button type='ghost' shape='circle' icon={<LogoutOutlined />} onClick={logout} />
+          </Space>
         </Row>
       </Layout.Header>
     </ConfigProvider>

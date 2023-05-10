@@ -6,6 +6,8 @@ import {
   LoginUserPayloadType,
   registerUser,
   RegisterUserPayloadType,
+  updateUser,
+  UpdateUserPayloadType,
 } from 'services/api';
 
 import { TOKEN_NAME } from 'utils/constants';
@@ -21,6 +23,7 @@ export const loginUserAction = createAsyncThunk(
   'user/loginUser',
   async (payload: LoginUserPayloadType) => {
     const { token, user } = await loginUser(payload);
+    console.log('123');
 
     setCookie(TOKEN_NAME, token);
 
@@ -34,6 +37,15 @@ export const registerUserAction = createAsyncThunk(
     const { token, user } = await registerUser(payload);
 
     setCookie(TOKEN_NAME, token);
+
+    return user;
+  }
+);
+
+export const updateUserAction = createAsyncThunk(
+  'user/updateUser',
+  async (payload: UpdateUserPayloadType) => {
+    const user = await updateUser(payload);
 
     return user;
   }

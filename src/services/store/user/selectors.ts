@@ -19,3 +19,8 @@ export const isRegisterRequestSelector = (state: RootState) =>
   watchUserSelector(state).isRegisterUserRequest;
 export const isRegisterErrorSelector = (state: RootState) =>
   watchUserSelector(state).isRegisterUserError;
+
+export const isUpdateUserRequestSelector = (state: RootState) =>
+  watchUserSelector(state).isUpdateUserRequest;
+export const isUpdateUserErrorSelector = (state: RootState) =>
+  watchUserSelector(state).isUpdateUserError;

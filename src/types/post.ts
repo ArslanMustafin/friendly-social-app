@@ -6,5 +6,7 @@ export type PostType = {
   text: string;
   image?: string;
   likes: UserType[] | string[];
-  author: UserType;
+  author: string;
+  createdAt: Date;
+  updatedAt: Date;
 };

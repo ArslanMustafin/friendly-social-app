@@ -9,10 +9,17 @@ const api = axios.create({
 });
 
 // Добавляем заголовок Authorization со значением токена:
-const token = getCookie(TOKEN_NAME);
-if (token) {
-  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+api.interceptors.request.use(
+  (config) => {
+    const token = getCookie(TOKEN_NAME);
+
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Обрабатываем ошибки авторизации:
 api.interceptors.response.use(
