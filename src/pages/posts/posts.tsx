@@ -1,4 +1,4 @@
-import { Posts } from 'components/posts/posts';
+import { Posts } from 'components/posts';
 
 import { isFetchPostsRequest, postsSelector } from 'services/store/posts';
 import { useAppSelector } from 'services/store/utils';

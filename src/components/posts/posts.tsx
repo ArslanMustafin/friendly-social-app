@@ -62,6 +62,8 @@ const Posts = ({ showTitle, isLoading, posts }: PropsType) => {
             <br />
             <br />
             Дата создания: {dayjs(item.createdAt).format('DD.MM.YYYY в HH:mm:ss')}
+            <br />
+            Количество лайков: {item.likes.length}
           </Card>
         </List.Item>
       )}
